@@ -18,6 +18,8 @@ These instructions will show you how to implement Asset Generator as an Xcode bu
 
 3. In the Run Script Phase, enter: `$SRCROOT/YourTarget/generateAssests.sh`
 
+4. In generateAssets.sh replace the path for AssetSpec.rb
+
 ### Using in Xcode
 
 Build your project and assets will be generated.
