@@ -1,6 +1,8 @@
 # Asset Generator
 
->Xcode build phase for generating scaled assets
+#### Xcode build phase for generating scaled assets
+
+![sample.gif](sample.gif "Generating Assets during build.")
 
 Xcode users know that scaling image and AppIcon assets is inefficient. Even by using tools that generate icons, precious time is spent dragging and dropping. Asset Generator is a completely automated tool that runs during your project's Build Phase. For every image and icon in .xcassets folders, Asset Generator will find the largest asset and scale it to fill any missing sizes.
 
