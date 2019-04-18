@@ -24,4 +24,4 @@ def base file, ext; return File.basename file, ext end
 def parse json; return JSON.parse File.read json end
 
 # writes to file
-def write file contents; return File.write file, contents end
+def write file, contents; return File.write file, contents end
