@@ -2,7 +2,7 @@
 #  AssetSpec.rb
 #
 #  Created by Michael Verges on 4/17/19.
-#  
+#
 
 require 'json'
 
@@ -36,7 +36,7 @@ def large_image filename, json
 end
 
 # Find all image assets
-Dir["**/*.imageset/*.json"].each do |json|
+for json in Dir["**/*.imageset/*.json"] do
   file   = parse json
   larget = large_image json, file
   large  = larget.first
@@ -44,32 +44,32 @@ Dir["**/*.imageset/*.json"].each do |json|
   size   = (sizeof large).to_s.split('x').map { |s| s.to_f / factor.to_f }
   
   puts "starting at " + (sizeof large).to_s
-  file["images"].each_with_index do |image, i|
+  for image in file["images"] do
     scale = image["scale"].to_f
     newsize = (size.first * scale).to_i.to_s + 'x' + (size.last * scale).to_i.to_s
     puts "newsize " + newsize
     out  = "#{dir large}/#{lastdir json, '.*'}@#{scale.to_s}#{ext large}"
     system "convert #{large} -resize #{newsize} #{out}"
-    file["images"][i]["filename"] = File.basename(out)
+    image["filename"] = File.basename(out)
   end
   
   File.write(json, file.to_json)
 end
 
 # Find all AppIcon assets
-Dir["**/*.appiconset/*.json"].each do |json|
+for json in Dir["**/*.appiconset/*.json"] do
   file   = parse json
   large  = (large_image json, file).first
   
   puts "starting at " + (sizeof large).to_s
-  file["images"].each_with_index do |image, i|
+  for image in file["images"] do
     scale = image["scale"].to_f
     size  = (image["size"]).to_s.split 'x'
     newsize = (size.first.to_f * scale).to_i.to_s + 'x' + (size.last.to_f * scale).to_i.to_s
     puts "newsize " + newsize
     out  = "#{dir large}/#{lastdir json, '.*'}@#{newsize}#{ext large}"
     system "convert #{large} -resize #{newsize} #{out}"
-    file["images"][i]["filename"] = File.basename(out)
+    image["filename"] = File.basename(out)
   end
   
   File.write(json, file.to_json)
