@@ -12,7 +12,7 @@ These instructions will show you how to implement Asset Generator as an Xcode bu
 
 ### Adding to Xcode
 
-1. Download `AssetSpec.rb` and `generateAssets.sh` and place the files in your Xcode project's target.
+1. Download scripts/* and place the files in your Xcode project's target.
 
 2. In project settings: `YourTarget > Build Phases > + > New Run Script Phase`
 
