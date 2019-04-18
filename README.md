@@ -10,16 +10,6 @@ Xcode users know that scaling image and AppIcon assets is inefficient. Even by u
 
 These instructions will show you how to implement Asset Generator as an Xcode build phase in your project.
 
-### Dependencies
-
-Asset Generator uses [imagemagick](https://imagemagick.org) - a CLI for resizing images.
-
-To install with [homebrew](https://brew.sh):
-
-```
-brew install imagemagick
-```
-
 ### Adding to Xcode
 
 1. Download `AssetSpec.rb` and `generateAssets.sh` and place the files in your Xcode project's target.
