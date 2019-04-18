@@ -12,14 +12,14 @@ def ext file; return File.extname file end
 def base file, ext; return File.basename file, ext end
 def parse json; return JSON.parse File.read json end
 def run cmd; return `#{cmd}`.to_s end
-def sizeof image; return  run ("identify -format '%wx%h' " + image) end
+def sizeof image; return  run("sips " + image + " -g pixelWidth").split(' ').last.to_i end
 
 def large_image filename, json
   index = -1
   maxsize = 0
   json["images"].each_with_index do |image, i|
     unless image["filename"].nil?
-      size = (sizeof "#{dir filename}/#{image['filename']}").split('x').first.to_f
+      size = (sizeof "#{dir filename}/#{image['filename']}")
       if size > maxsize
         maxsize = size
         index = i
@@ -28,7 +28,6 @@ def large_image filename, json
   end
   # Warn users if upscaling assets
   unless json['images'][index] == json['images'][-1]
-    puts sizeof "#{dir filename}/#{json['images'][-1]['filename']}"
     image = lastdir filename, '.*'
     puts "warning: Upscaling from #{maxsize}px occured in asset '#{image}'"
   end
@@ -41,15 +40,13 @@ for json in Dir["**/*.imageset/*.json"] do
   larget = large_image json, file
   large  = larget.first
   factor = larget.last
-  size   = (sizeof large).to_s.split('x').map { |s| s.to_f / factor.to_f }
+  size   = sizeof(large).to_f / factor.to_f
   
-  puts "starting at " + (sizeof large).to_s
   for image in file["images"] do
     scale = image["scale"].to_f
-    newsize = (size.first * scale).to_i.to_s + 'x' + (size.last * scale).to_i.to_s
-    puts "newsize " + newsize
+    newsize = (size * scale).to_i.to_s
     out  = "#{dir large}/#{lastdir json, '.*'}@#{scale.to_s}#{ext large}"
-    system "convert #{large} -resize #{newsize} #{out}"
+    system "sips #{large} --resampleWidth #{newsize} --out #{out}"
     image["filename"] = File.basename(out)
   end
   
@@ -61,14 +58,12 @@ for json in Dir["**/*.appiconset/*.json"] do
   file   = parse json
   large  = (large_image json, file).first
   
-  puts "starting at " + (sizeof large).to_s
   for image in file["images"] do
     scale = image["scale"].to_f
-    size  = (image["size"]).to_s.split 'x'
-    newsize = (size.first.to_f * scale).to_i.to_s + 'x' + (size.last.to_f * scale).to_i.to_s
-    puts "newsize " + newsize
+    size  = ((image["size"]).to_s.split 'x').first
+    newsize = (size.to_f * scale).to_i.to_s
     out  = "#{dir large}/#{lastdir json, '.*'}@#{newsize}#{ext large}"
-    system "convert #{large} -resize #{newsize} #{out}"
+    system "sips #{large} --resampleWidth #{newsize} --out #{out}"
     image["filename"] = File.basename(out)
   end
   
