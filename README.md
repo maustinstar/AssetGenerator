@@ -20,11 +20,17 @@ These instructions will show you how to implement Asset Generator as an Xcode bu
 
 4. In generateAssets.sh replace the path for AssetSpec.rb
 
+`ruby ${PROJECT_DIR}/SampleProject/AssetSpec.rb -a` -> `ruby ${PROJECT_DIR}/YourTarget/AssetSpec.rb -a`
+
 ### Using in Xcode
 
 Build your project and assets will be generated.
 
 >For assets, you may provide any size, but you will recieve a build warning unless the largest required scale is provided.
+
+By default, all assets will be generated from the largest asset during build. To only generate missing assets, change the contents of `generateAssets.sh` by removing the `-a` flag:
+
+`ruby ${PROJECT_DIR}/YourTarget/AssetSpec.rb -a` -> `ruby ${PROJECT_DIR}/YourTarget/AssetSpec.rb`
 
 ## Built With
 
