@@ -24,9 +24,7 @@ These instructions will show you how to implement Asset Generator as an Xcode bu
 
 Build your project and assets will be generated.
 
->For image assets, you may provide either @1x, @2x, or @3x, but you will recieve a build warning unless the largest scale is provided.
-
->For app icons, you **must** provide the 1024x1024 icon.
+>For assets, you may provide any size, but you will recieve a build warning unless the largest required scale is provided.
 
 ## Built With
 
