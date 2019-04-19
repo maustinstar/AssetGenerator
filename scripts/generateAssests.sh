@@ -5,4 +5,4 @@
 #  Created by Michael Verges on 4/17/19.
 #  
 
-ruby ${PROJECT_DIR}/SampleProject/AssetSpec.rb -a
+ruby $PROJECT_DIR/$PROJECT_NAME/AssetSpec.rb -a
