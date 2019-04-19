@@ -28,7 +28,6 @@ for filename in Dir["**/*.imageset/*.json"] do
     scale_to_width largename, newsize, out
     # add json reference to new asset
     image["filename"] = base out, ''
-    puts image["filename"]
   end
   
   # update asset json
