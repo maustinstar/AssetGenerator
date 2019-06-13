@@ -20,7 +20,7 @@ for filename in Dir["**/*.imageset/*.json"] do
   json = parse filename
   # json object for largest image in set
   large = find_largest filename, json
-  largename = "#{dir filename}/#{large['filename']}"
+  largename = "\"#{dir filename}/#{large['filename']}\""
   # base @1x asset width
   width = width_of(largename).to_f / large['scale'].to_f
   
@@ -30,7 +30,7 @@ for filename in Dir["**/*.imageset/*.json"] do
     next if !generate_all and !image["filename"].nil?
     scale = image["scale"].to_f
     out = "#{dir filename}/#{lastdir filename, '.*'}@#{scale.to_i.to_s}#{ext large['filename']}"
-    scale_to_width largename, (width * scale).to_i.to_s, out
+    scale_to_width largename, (width * scale).to_i.to_s, "\"" + out + "\""
     # add json reference to new asset
     image["filename"] = base out, ''
     puts out
@@ -54,7 +54,7 @@ for filename in Dir["**/*.appiconset/*.json"] do
     next if !generate_all and !image["filename"].nil?
     newsize = (((image["size"]).to_s.split 'x').first.to_f * image["scale"].to_f).to_i.to_s
     out = "#{dir filename}/#{lastdir filename, '.*'}@#{newsize}#{ext large['filename']}"
-    scale_to_width "#{dir filename}/#{large['filename']}", newsize, out
+    scale_to_width "\"#{dir filename}/#{large['filename']}\"", newsize, "\"" + out + "\""
     # add json reference to new asset
     image["filename"] = base out, ''
     puts out
