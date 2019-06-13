@@ -12,11 +12,11 @@ These instructions will show you how to implement Asset Generator as an Xcode bu
 
 ### Adding to Xcode
 
-1. Download files from the scripts folder and place them in your desired Xcode target.
+1. Download the scripts folder and place it in your desired Xcode target.
 
 2. In project settings: `Target > Build Phases > + > New Run Script Phase`
 
-3. In the Run Script Phase, enter: `$SRCROOT/$PROJECT_NAME/generateAssests.sh`
+3. In the Run Script Phase, enter: `"$PROJECT_DIR"/"$PROJECT_NAME"/scripts/generateAssests.sh`
 
 ### Using in Xcode
 
@@ -26,7 +26,7 @@ Build your project and assets will be generated.
 
 By default, all assets will be generated from the largest asset during build. To generate only missing assets, change the contents of `generateAssets.sh` by removing the `-a` flag:
 
-`ruby $PROJECT_DIR/$PROJECT_NAME/AssetSpec.rb -a` -> `ruby $PROJECT_DIR/$PROJECT_NAME/AssetSpec.rb`
+`ruby "$PROJECT_DIR"/"$PROJECT_NAME"/scripts/AssetSpec.rb -a` → `ruby "$PROJECT_DIR"/"$PROJECT_NAME"/scripts/AssetSpec.rb`
 
 ## Built With
 
